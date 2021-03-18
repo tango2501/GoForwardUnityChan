@@ -10,11 +10,14 @@ public class CubeController : MonoBehaviour
     //消滅位置
     private float deadLine = -10;
 
+    //キューブの音
+    public AudioSource cube;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //キューブの効果音を取得
+        cube = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -29,5 +32,13 @@ public class CubeController : MonoBehaviour
             Destroy(gameObject);
         }
 
+    }
+    //衝突したときに音を鳴らす関数
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        //衝突したもののタグがGroundかBlockだったとき
+        if(other.gameObject.tag == "Ground" | other.gameObject.tag == "Block")
+        //効果音を鳴らす
+        cube.Play();
     }
 }
